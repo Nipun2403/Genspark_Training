@@ -1,0 +1,4 @@
+# Global Install Log — OmniBus Booking Platform
+# Format: [Timestamp] | Name: {pkg} | Path: {folder}
+# --------------------------------------------------
+# No global installations performed yet.

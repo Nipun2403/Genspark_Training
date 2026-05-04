@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  omnibus-db:
+    image: postgres:16-alpine
+    container_name: omnibus-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: omnibus
+      POSTGRES_USER: omnibus_admin
+      POSTGRES_PASSWORD: OmniBus@2026!Secure
+    ports:
+      - "5432:5432"
+    volumes:
+      - omnibus_pgdata:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U omnibus_admin -d omnibus"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  omnibus_pgdata:
+    driver: local
