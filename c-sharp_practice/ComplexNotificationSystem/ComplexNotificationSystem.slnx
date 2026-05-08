@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BusinessLogic/BusinessLogic.csproj" />
+  <Project Path="DataAccess/DataAccess.csproj" />
+  <Project Path="PresentationUI/PresentationUI.csproj" />
+  <Project Path="SharedModels/SharedModels.csproj" />
+</Solution>
