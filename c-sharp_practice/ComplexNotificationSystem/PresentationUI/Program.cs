@@ -1,30 +1,47 @@
-﻿using BusinessLogic;
-using BusinessLogic.Validators;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SharedModels.Interfaces;
 using DataAccess;
+using BusinessLogic;
+using BusinessLogic.Validators;
 
 namespace PresentationUI
 {
   class Program
   {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-      // Initialize Repositories
-      var userRepository = new UserRepository();
-      var notificationRepository = new NotificationRepository();
+      // 1. Build Configuration (Reads from appsettings.json)
+      var builder = new ConfigurationBuilder()
+          .SetBasePath(AppContext.BaseDirectory)
+          .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+      IConfiguration configuration = builder.Build();
 
-      // Initialize the validator to be used in both UserService and ConsoleApp to ensure strong validation.
-      var userValidator = new UserValidator();
+      string connectionString = configuration.GetConnectionString("DefaultConnection")
+          ?? throw new InvalidOperationException("Connection string not found.");
 
-      // Pass user repository and custom validator to user service
-      var userService = new UserService(userRepository, userValidator);
-      // Passing userservice and notification repos to notification service.
-      var notificationService = new NotificationService(notificationRepository, userService);
+      // 2. Setup Dependency Injection Container
+      var serviceProvider = new ServiceCollection()
+          // Inject Repositories to their Interfaces
+          .AddScoped<IUserRepository>(sp => new UserRepository(connectionString))
+          .AddScoped<INotificationRepository>(sp => new NotificationRepository(connectionString))
 
-      // Passing the validator along with others to ensure that any input errors are caught in the Ui layer fast.
-      var terminal = new ConsoleApplication(userService, notificationService, userValidator);
+          // Inject Validators and Services
+          .AddScoped<UserValidator>()
+          .AddScoped<UserService>()
+          .AddScoped<NotificationService>()
 
-      // Let'g Goo, Start the app :)
-      terminal.Run();
+          // Inject the UI Application
+          .AddScoped<ConsoleApplication>()
+
+          .BuildServiceProvider();
+
+      // 3. Resolve the UI application and Run
+      var app = serviceProvider.GetRequiredService<ConsoleApplication>();
+      await app.RunAsync();
     }
   }
 }

@@ -1,50 +1,46 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SharedModels;
 using SharedModels.Exceptions;
-using DataAccess;
+using SharedModels.Interfaces;
 using BusinessLogic.Validators;
-
-// Actual business logic for creating user, etc functions
 
 namespace BusinessLogic
 {
   public class UserService
   {
-    private readonly UserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly UserValidator _validator;
-    public UserService(UserRepository userRepository, UserValidator validator)
+
+    public UserService(IUserRepository userRepository, UserValidator validator)
     {
       _userRepository = userRepository;
       _validator = validator;
     }
 
-    public User CreateUser(string name, string email, string phone)
+    public async Task<User> CreateUserAsync(string name, string email, string phone)
     {
-      // The strong validaition i mentioned in validator class.
-      // Promotes laziness and avoids searching for bugs in middle of the night.
       _validator.ValidateName(name);
       _validator.ValidateEmail(email);
       _validator.ValidatePhone(phone);
       _validator.ValidateContactMethods(email, phone);
 
       var newUser = new User { Name = name, Email = email, PhoneNumber = phone };
-      return _userRepository.AddUser(newUser);
+      return await _userRepository.AddUserAsync(newUser);
     }
 
-    public List<User> GetAllUsers() => _userRepository.GetAllUsers();
+    public async Task<List<User>> GetAllUsersAsync() => await _userRepository.GetAllUsersAsync();
 
-    public User GetUserById(int id)
+    public async Task<User> GetUserByIdAsync(int id)
     {
-      var user = _userRepository.GetUserById(id);
-      if (user == null)
-        throw new NotFoundException($"User with ID {id} not found.");
+      var user = await _userRepository.GetUserByIdAsync(id);
+      if (user == null) throw new NotFoundException($"User with ID {id} not found.");
       return user;
     }
 
-    // Similar validatio as create user.
-    public bool UpdateUser(int id, string name, string email, string phone)
+    public async Task<bool> UpdateUserAsync(int id, string name, string email, string phone)
     {
-      var user = GetUserById(id);
+      var user = await GetUserByIdAsync(id);
 
       if (!string.IsNullOrWhiteSpace(name)) _validator.ValidateName(name);
       if (!string.IsNullOrWhiteSpace(email)) _validator.ValidateEmail(email);
@@ -58,9 +54,9 @@ namespace BusinessLogic
       if (!string.IsNullOrWhiteSpace(email)) user.Email = email;
       if (!string.IsNullOrWhiteSpace(phone)) user.PhoneNumber = phone;
 
-      return _userRepository.UpdateUser(user);
+      return await _userRepository.UpdateUserAsync(user);
     }
 
-    public bool DeleteUser(int id) => _userRepository.DeleteUser(id);
+    public async Task<bool> DeleteUserAsync(int id) => await _userRepository.DeleteUserAsync(id);
   }
 }

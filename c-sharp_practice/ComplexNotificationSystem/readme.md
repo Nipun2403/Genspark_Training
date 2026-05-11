@@ -1,31 +1,35 @@
-# 🏢 3 Tier Notification System : 
+# 🏢 3 Tier Notification System v2.0: The Database Edition
 
-It is built using strictly enforced **3-Tier Architecture** and **SOLID Principles**, including Dependency Injection, multi-project solution structure, and Interface-driven polymorphism.  A
+It is built using strictly enforced **3-Tier Architecture** and **SOLID Principles**, including Dependency Injection, multi-project solution structure, Interface-driven polymorphism, and now—a fully relational **PostgreSQL Database** powered by raw ADO.NET. Because saving data in temporary in-memory lists is for *interns*.
 
 ---
 
 ## ✨ Fancy Features
 
-* **Paginated Dashboard (Extra):** I personally hates a big slop of text. So View your sent notifications in a clean UI
-* **Fail-Fast Regex Validation (Bonus):** users can never be trusted to type their own phone numbers or emails correctly. Errors are thrown instantly.
-* **Fancy Visual:** Colorful console outputs with green successes, red errors, and magenta headers to make terminal logs look like a kid's birthday cake, tasty and visually appealing
-* **Polymorphic Routing:** Dynamically sends Emails or SMS messages using a unified `INotificationSender` interface. Can't be coding if-else all day now can we?
+* **PostgreSQL** Tata bye bye to losing all your data every time the app restarts. Data is safe in relational tables.
+* **Asynchronous (Async/Await):** Because blocking the main thread during a database call is a crime against my session requests.
+* **Dependency Injection (IoC):** Completely decoupled architecture using `Microsoft.Extensions.DependencyInjection`. (took some help of ai in this)
+* **Paginated Dashboard (same as last time):** I personally hate a big slop of text. View your sent notifications in a clean, page-by-page UI. It even dynamically uses SQL `JOIN`s so you actually know the name of who you are texting.
+* **Fail-Fast Regex Validation (same as last time):** Users can never be trusted to type their own phone numbers or emails correctly. Errors are thrown instantly before we ever bother the database.
+* **Fancy Visual (same as last time):** Colorful console outputs with green successes, red errors, and magenta headers to make terminal logs look like a kid's birthday cake—tasty and visually appealing.
+* **Polymorphic Routing (same as last time):** Dynamically sends Emails or SMS messages using a unified `INotificationSender` interface. Can't be coding if-else all day now can we?
 * **Custom Exception Handling:** Custom error states (`ValidationException` & `NotFoundException`) because throwing generic `System.Exception` is uncultured for developers.
 
 ---
 
 ## 🏗️ Folder Structure
 
-The application strictly adheres to the one-layer-does-one-thing rule, aka **Separation of Concerns**.
+The application strictly adheres to the one-layer-does-one-thing rule, aka **Separation of Concerns**. Interfaces dictate the contracts, and implementations do the heavy lifting.
 
 ```text
-EnterpriseNotification/
+Fancy Notification/
 │
-├── EnterpriseNotification.sln         # The Master Binder
+├── notification.sln         # The Master Binder
 │
 ├── PresentationUI/                    # The View / Controller
-│   ├── Program.cs                     # Composition Root (Startup)
-│   ├── ConsoleApplication.cs          # Fail-fast loops and colorful UI
+│   ├── Program.cs                     # Composition Root (DI Setup & AppContext)
+│   ├── ConsoleApplication.cs          # colorful UI
+│   ├── appsettings.json               # DB Credentials (DO NOT COMMIT TO GIT)
 │   └── PresentationUI.csproj
 │
 ├── BusinessLogic/                     # The Brains (Rules & Validation)
@@ -38,16 +42,18 @@ EnterpriseNotification/
 │   │   └── SmsNotificationSender.cs
 │   └── BusinessLogic.csproj
 │
-├── DataAccess/                        # The Database (In-Memory Lists)
-│   ├── NotificationRepository.cs
-│   ├── UserRepository.cs
+├── DataAccess/                        # The Database Layer (ADO.NET & Npgsql)
+│   ├── NotificationRepository.cs      # Executes raw Postgres INSERTs/JOINs
+│   ├── UserRepository.cs              
 │   └── DataAccess.csproj
 │
-└── SharedModels/                      # The Entities (Data Transfer Objects)
+└── SharedModels/                      # The Entities & Contracts
     ├── User.cs
-    ├── Notification.cs
-    ├── NotificationLog.cs
+    ├── NotificationLog.cs             # Flattened DB Entity
+    ├── NotificationUserJoin.cs        # DTO for the paginated UI
     ├── Interfaces/
+    │   ├── IUserRepository.cs
+    │   ├── INotificationRepository.cs
     │   └── INotificationSender.cs
     ├── Exceptions/
     │   ├── NotFoundException.cs
@@ -55,38 +61,9 @@ EnterpriseNotification/
     └── SharedModels.csproj
 
 ```
+## Output
+#### 1. Main Menu
+![output1](<output/Screenshot 2026-05-11 at 9.54.00 PM.png>)
 
----
-
-## If you want to run this
-
-1. Clone the repository to your local machine.
-2. Navigate to the root directory containing the `.sln` file.
-3. Run the command specifying the UI project:
-```bash
-dotnet run --project PresentationUI 
-
-```
-
-
-
----
-
-## 📜 My System
-
-1. **Add a User:** Provide a name, email, and phone. At least *one* contact method is mandatory. If you skip one, the system will warn you, but let you proceed.
-2. **Strict Formats:** Emails must actually look like emails (`user@domain.com`). Phones must be at least 7 digits.
-3. **Send a Notification:** Pick a user, pick a type (Email/SMS), and type a message.
-4. **The 5-Character Minimum:** Messages under 5 characters will be rejected immediately.
-5. **Pagination:** View your sent notifications 5 at a time. Use `N` for Next, `P` for Previous, and `Q` to Quit back to the menu.
-
----
-
-## 🖥️ Output Gallery (Application States)
-
-### 1. The Main Dashboard
-![alt text](<output/Screenshot 2026-05-08 at 9.57.54 PM.png>)
-![alt text](<output/Screenshot 2026-05-08 at 9.58.23 PM.png>)
-![alt text](<output/Screenshot 2026-05-08 at 9.59.24 PM.png>)
-### 2. Paginated Notification Viewer
-![alt text](<output/Screenshot 2026-05-08 at 10.00.07 PM.png>)
+#### 2. Notification Logs
+![alt text](<output/Screenshot 2026-05-11 at 9.56.35 PM.png>)
