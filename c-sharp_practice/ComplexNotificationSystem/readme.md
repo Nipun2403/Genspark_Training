@@ -67,3 +67,8 @@ Fancy Notification/
 
 #### 2. Notification Logs
 ![alt text](<output/Screenshot 2026-05-11 at 9.56.35 PM.png>)
+
+#### 3. Notification Log Postgresql
+![alt text](<output/Screenshot 2026-05-11 at 10.18.32 PM.png>)
+#### 4. User Postgresql
+![alt text](<output/Screenshot 2026-05-11 at 10.18.54 PM.png>)
