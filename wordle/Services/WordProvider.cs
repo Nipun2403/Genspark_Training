@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using Npgsql;
 using wordle.Interfaces;
 using wordle.Models;
 
@@ -7,37 +7,28 @@ namespace wordle.Services
 {
   public class WordProvider : IWordProvider
   {
-    private readonly Dictionary<Level, List<string>> _wordBank;
-    private readonly Random _rand;
+    private readonly string _connectionString;
 
-    public WordProvider()
+    public WordProvider(string connectionString)
     {
-      _rand = new Random();
-
-      // Enterprise Dictionary mapping Enums to categorized word lists
-      _wordBank = new Dictionary<Level, List<string>>
-            {
-                {
-                    Level.Easy,
-                    new List<string> { "APPLE", "HOUSE", "WATER", "CHAIR", "TABLE" }
-                },
-                {
-                    Level.Medium,
-                    new List<string> { "PLANT", "TRAIN", "BRAIN", "SMART", "WORLD", "MANGO" }
-                },
-                { 
-                    // Hard words have repeating letters, tricky placements, or rare characters (Z, X, Q, V, Y)
-                    Level.Hard,
-                    new List<string> { "JAZZY", "QUELL", "VIVID", "ZESTY", "CRYPT", "FLUFF" }
-                }
-            };
+      _connectionString = connectionString;
     }
 
-    public string GetRandomWord(Level level)
+    public string GetRandomWord(Level difficulty)
     {
-      // Fetch the specific list based on the user's choice
-      var wordList = _wordBank[level];
-      return wordList[_rand.Next(wordList.Count)];
+      using var conn = new NpgsqlConnection(_connectionString);
+      conn.Open();
+
+      // Fetching a random word with the difficulty the user selected using ORDER BY RANDOM()
+      using var cmd = new NpgsqlCommand(
+          "SELECT Word FROM Words WHERE Difficulty = @diff ORDER BY RANDOM() LIMIT 1", conn);
+      cmd.Parameters.AddWithValue("diff", (int)difficulty);
+
+      var result = cmd.ExecuteScalar();
+      if (result == null)
+        throw new Exception($"No words found in database for difficulty level {difficulty}");
+
+      return result?.ToString() ?? string.Empty;
     }
   }
 }
