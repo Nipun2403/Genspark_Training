@@ -1,5 +1,5 @@
 bin/
 obj/
 temp/
-
+.dotnet/
 .DS_Store
