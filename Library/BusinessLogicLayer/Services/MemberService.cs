@@ -1,17 +1,24 @@
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogicLayer.Services;
 
 /// CURD: add, view, search, update, deactivate.
-public class MemberService
+public class MemberService : IMemberService
 {
-    private readonly LibraryDbContext _context;
+    private readonly LibraryDbContext _context = null!;
+    private readonly IMemberRepository _memberRepository;
 
-    public MemberService(LibraryDbContext context)
+    public MemberService(LibraryDbContext context) : this(context, new MemberRepository(context))
+    {
+    }
+
+    public MemberService(LibraryDbContext context, IMemberRepository memberRepository)
     {
         _context = context;
+        _memberRepository = memberRepository;
     }
 
 
@@ -55,10 +62,7 @@ public class MemberService
     /// Returns all members
     public async Task<List<Member>> GetAllMembersAsync()
     {
-        return await _context.Members
-            .Include(m => m.MembershipConfig)
-            .OrderBy(m => m.MemberId)
-            .ToListAsync();
+        return await _memberRepository.GetAllAsync();
     }
 
 
@@ -142,5 +146,15 @@ public class MemberService
         return await _context.MembershipConfigs
             .OrderBy(m => m.MembershipType)
             .ToListAsync();
+    }
+
+    public async Task<Member?> GetMemberByIdAsync(int id)
+    {
+        return await _memberRepository.GetByIdAsync(id);
+    }
+
+    public async Task AddMemberAsync(Member member)
+    {
+        await _memberRepository.AddAsync(member);
     }
 }

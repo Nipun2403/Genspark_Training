@@ -34,6 +34,9 @@ public class LibraryDbContext : DbContext
         // Creates the database if not present
         Database.EnsureCreated();
 
+        // Add published_year column if it does not exist
+        Database.ExecuteSqlRaw("ALTER TABLE books ADD COLUMN IF NOT EXISTS published_year INTEGER DEFAULT 0 NOT NULL;");
+
         // calculate_member_fine Function
         Database.ExecuteSqlRaw(@"
             CREATE OR REPLACE FUNCTION calculate_member_fine(p_member_id INT)
@@ -130,6 +133,10 @@ public class LibraryDbContext : DbContext
             entity.Property(e => e.CategoryId)
                 .HasColumnName("category_id")
                 .IsRequired();
+
+            entity.Property(e => e.PublishedYear)
+                .HasColumnName("published_year")
+                .HasDefaultValue(0);
 
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")

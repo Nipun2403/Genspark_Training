@@ -13,6 +13,7 @@ public class Book
 
     /// Foreign key to BookCategory.
     public int CategoryId { get; set; }
+    public int PublishedYear { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Extra Properties to Hold Data and relation between Book, BookCopies and BookCategory.

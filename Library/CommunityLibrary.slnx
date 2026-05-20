@@ -2,4 +2,5 @@
   <Project Path="BusinessLogicLayer/BusinessLogicLayer.csproj" />
   <Project Path="DataAccessLayer/DataAccessLayer.csproj" />
   <Project Path="PresentationLayer/PresentationLayer.csproj" />
+  <Project Path="LibraryManagement.API/LibraryManagement.API.csproj" />
 </Solution>

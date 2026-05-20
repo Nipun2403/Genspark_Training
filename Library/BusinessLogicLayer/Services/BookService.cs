@@ -1,17 +1,24 @@
 using DataAccessLayer;
 using DataAccessLayer.Entities;
+using DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogicLayer.Services;
 
 /// CURD for Books :  add book, add copies, search, mark damaged.
-public class BookService
+public class BookService : IBookService
 {
-    private readonly LibraryDbContext _context;
+    private readonly LibraryDbContext _context = null!;
+    private readonly IBookRepository _bookRepository;
 
-    public BookService(LibraryDbContext context)
+    public BookService(LibraryDbContext context) : this(context, new BookRepository(context))
+    {
+    }
+
+    public BookService(LibraryDbContext context, IBookRepository bookRepository)
     {
         _context = context;
+        _bookRepository = bookRepository;
     }
 
     /// Adds a new book to the library by ISBN.
@@ -148,10 +155,21 @@ public class BookService
     /// Returns all books in the system with their copies.
     public async Task<List<Book>> GetAllBooksAsync()
     {
-        return await _context.Books
-            .Include(b => b.Category)
-            .Include(b => b.Copies)
-            .OrderBy(b => b.Title)
-            .ToListAsync();
+        return await _bookRepository.GetAllAsync();
+    }
+
+    public async Task<Book?> GetBookByIdAsync(int id)
+    {
+        return await _bookRepository.GetByIdAsync(id);
+    }
+
+    public async Task AddBookAsync(Book book, int availableCopies)
+    {
+        await _bookRepository.AddAsync(book, availableCopies);
+    }
+
+    public async Task<List<Book>> SearchBooksByTitleAsync(string title)
+    {
+        return await _bookRepository.SearchByTitleAsync(title);
     }
 }
