@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Outfit"', 'sans-serif'],
+            serif: ['"Instrument Serif"', 'serif'],
+          },
+          colors: {
+            paper: '#FDFBF7',
+            ink: '#1E293B',
+            muted: '#64748B',
+            pastel: {
+              blue: '#D3E4FD',
+              pink: '#FCE7F3',
+              peach: '#FFE5D9',
+              mint: '#D1F4E0',
+              lilac: '#E5E0FA',
+              yellow: '#FEF08A'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body class="bg-paper text-ink font-sans selection:bg-pastel-yellow selection:text-ink overflow-x-hidden">
+  <!-- Navbar type thing -->
+  <nav
+    class="fixed top-6 left-1/2 -translate-x-1/2 z-40 bg-white/70 backdrop-blur-xl border border-white rounded-full shadow-sm px-6 py-3 flex items-center gap-8 w-[90%] max-w-xl justify-between"
+    data-aos="fade-down">
+    <span class="text-ink font-bold tracking-widest text-sm uppercase">Nipun.</span>
+    <div class="flex gap-6 text-xs font-semibold tracking-wider uppercase text-muted">
+      <a href="#work" class="hover:text-ink transition-colors">Work</a>
+      <!-- <a href="#archive" class="hover:text-ink transition-colors">Archive</a> -->
+      <a href="#info" class="hover:text-ink transition-colors">Info</a>
+    </div>
+    <a href="#"
+      class="w-8 h-8 rounded-full bg-pastel-lilac text-ink flex items-center justify-center hover:bg-pastel-pink transition-colors shadow-sm">
+      <i class="ph ph-envelope-simple font-bold"></i>
+    </a>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-8 pt-48">
+    <!-- Main Section -->
+    <main class="mb-40 text-center flex flex-col items-center" data-aos="fade-up" data-aos-duration="1000">
+
+      <h1 class="text-[7rem] leading-[0.95] text-ink font-serif tracking-tight max-w-5xl">
+        Hi,<br>
+
+        <span class="italic text-slate-400">Nipun</span> Here.
+      </h1>
+      <p class="max-w-xl mt-10 text-lg text-muted font-medium leading-relaxed">
+        Computer Science student transitioning core C++ foundations to scalable, modern C# and .NET frameworks. Focusing
+        on high-scale document intelligence and system architecture.
+      </p>
+      <i class="ph ph-arrow-down text-3xl text-pastel-lilac animate-bounce mt-16"></i>
+    </main>
+
+    <!-- Skills -->
+    <section class="grid grid-cols-4 gap-px bg-borderMuted/30 rounded-3xl p-1 border border-borderMuted/50 mb-32"
+      data-aos="fade-up" data-aos-duration="1000">
+      <div class="rounded-2xl p-6 text-center bg-transparent">
+        <p class="font-display text-4xl font-bold text-indigo-400 mb-1">C#</p>
+        <p class="text-xs text-slate-500 uppercase font-semibold tracking-wider">Core Foundations</p>
+      </div>
+      <div class="rounded-2xl p-6 text-center bg-transparent">
+        <p class="font-display text-4xl font-bold text-indigo-400 mb-1">.NET</p>
+        <p class="text-xs text-slate-500 uppercase font-semibold tracking-wider">Enterprise Stack</p>
+      </div>
+      <div class="rounded-2xl p-6 text-center bg-transparent">
+        <p class="font-display text-4xl font-bold text-indigo-400 mb-1">RAG</p>
+        <p class="text-xs text-slate-500 uppercase font-semibold tracking-wider">Local Document Intelligence</p>
+      </div>
+      <div class="rounded-2xl p-6 text-center bg-transparent">
+        <p class="font-display text-4xl font-bold text-indigo-400 mb-1">Wiki</p>
+        <p class="text-xs text-slate-500 uppercase font-semibold tracking-wider">Obsidian Structuring</p>
+      </div>
+    </section>
+
+    <section id="work" class="mb-32">
+      <div class="grid grid-cols-12 gap-6">
+        <!-- GRID ITEM: Featured Project (Pastel Blue) -->
+        <div class="pastel-card bg-pastel-blue p-12 col-span-8 rounded-[2.5rem] flex flex-col justify-between"
+          data-aos="fade-up">
+          <div class="flex justify-between items-start mb-24">
+            <span
+              class="text-xs font-bold uppercase tracking-widest px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full text-ink">01
+              / Featured</span>
+            <a href="#"
+              class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-ink hover:scale-110 transition-transform shadow-sm">
+              <i class="ph ph-arrow-up-right text-xl"></i>
+            </a>
+          </div>
+          <div>
+            <h2 class="text-5xl font-serif text-ink mb-4">Secure Document Intelligence</h2>
+            <p class="text-base text-slate-700 max-w-lg leading-relaxed">
+              Engineered a fully local Retrieval-Augmented Generation (RAG) system capable of processing PDF, DOCX and
+              all other formats
+              formats utilizing LangChain, FAISS, and localized token embeddings. Designed for secure, high-scale
+              document intelligence without external API dependencies.
+            </p>
+          </div>
+        </div>
+
+        <div class="pastel-card bg-pastel-peach p-10 col-span-4 rounded-[2.5rem]" data-aos="fade-up"
+          data-aos-delay="100">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-8 pb-4 border-b border-black/5">Core
+            Stack</h3>
+          <ul class="space-y-4">
+            <li class="flex justify-between items-end pb-3 border-b border-black/5">
+              <span class="text-xl text-ink font-serif">C# / .NET</span>
+              <span class="text-xs text-slate-500 font-bold bg-white/50 px-2 py-1 rounded">Scalable Solutions</span>
+            </li>
+            <li class="flex justify-between items-end pb-3 border-b border-black/5">
+              <span class="text-xl text-ink font-serif">C++</span>
+              <span class="text-xs text-slate-500 font-bold bg-white/50 px-2 py-1 rounded">Logic Building</span>
+            </li>
+            <li class="flex justify-between items-end pb-3 border-b border-black/5">
+              <span class="text-xl text-ink font-serif">LangChain</span>
+              <span class="text-xs text-slate-500 font-bold bg-white/50 px-2 py-1 rounded">AI Integration</span>
+            </li>
+            <li class="flex justify-between items-end pb-3">
+              <span class="text-xl text-ink font-serif">FAISS</span>
+              <span class="text-xs text-slate-500 font-bold bg-white/50 px-2 py-1 rounded">Vector DB</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pastel-card bg-pastel-lilac p-10 col-span-6 rounded-[2.5rem]" data-aos="fade-up">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-8 pb-4 border-b border-black/5">
+            Development Ecosystem</h3>
+          <div class="grid grid-cols-2 gap-6 text-sm">
+            <div class="bg-white/40 p-4 rounded-2xl">
+              <i class="ph ph-apple-logo text-2xl mb-2 text-ink"></i>
+              <p class="text-ink font-bold mb-1">Apple</p>
+              <p class="text-slate-600 text-xs">Mobile Unix Base</p>
+            </div>
+            <div class="bg-white/40 p-4 rounded-2xl">
+              <i class="ph ph-cpu text-2xl mb-2 text-ink"></i>
+              <p class="text-ink font-bold mb-1">Custom Requests</p>
+              <p class="text-slate-600 text-xs">High-Scale Rig</p>
+            </div>
+            <div class="bg-white/40 p-4 rounded-2xl">
+              <i class="ph ph-terminal-window text-2xl mb-2 text-ink"></i>
+              <p class="text-ink font-bold mb-1">Fedora / Ubuntu</p>
+              <p class="text-slate-600 text-xs">Linux Ecosystem</p>
+            </div>
+            <div class="bg-white/40 p-4 rounded-2xl">
+              <i class="ph ph-book-open text-2xl mb-2 text-ink"></i>
+              <p class="text-ink font-bold mb-1">Obsidian PKM</p>
+              <p class="text-slate-600 text-xs">Knowledge Base</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pastel-card bg-pastel-pink p-10 col-span-5 rounded-[2.5rem]" data-aos="fade-up"
+          data-aos-delay="100">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3 pb-4 border-b border-black/5">
+            Education
+          </h3>
+          <div class="space-y-6 pt-2">
+            <h4 class="text-3xl font-serif text-ink mb-4">B.Tech Computer Science</h4>
+            <p class="text-sm font-bold text-ink flex items-center gap-3 mb-2">
+              <i class="ph-fill ph-cpu text-slate-400 text-lg"></i> Vellore Institute of Technology
+            </p>
+            <p class="text-xs text-slate-500 font-medium tracking-wide uppercase flex items-center gap-3">
+              <i class="ph-fill ph-calendar-blank text-slate-400 text-lg"></i> Class of 2026
+            </p>
+          </div>
+        </div>
+
+        <div class="pastel-card bg-pastel-mint p-10 col-span-6 rounded-[2.5rem] flex flex-col justify-between"
+          data-aos="fade-up" data-aos-delay="100">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-8 pb-4 border-b border-black/5">
+              Beyond The Screen</h3>
+            <div class="flex flex-wrap gap-3 text-xs font-bold">
+              <span class="px-4 py-2 bg-white/60 text-ink rounded-full shadow-sm flex items-center gap-2">
+                <i class="ph-fill ph-barbell text-slate-400"></i> Sports & Nutrition
+              </span>
+              <span class="px-4 py-2 bg-white/60 text-ink rounded-full shadow-sm flex items-center gap-2">
+                <i class="ph-fill ph-translate text-slate-400"></i> Languages and Linguistics
+              </span>
+              <span class="px-4 py-2 bg-white/60 text-ink rounded-full shadow-sm flex items-center gap-2">
+                <i class="ph-fill ph-headphones text-slate-400"></i> Ye / Drake
+              </span>
+              <span class="px-4 py-2 bg-white/60 text-ink rounded-full shadow-sm flex items-center gap-2">
+                <i class="ph-fill ph-television text-slate-400"></i> Anime
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="info" class="py-24 text-center" data-aos="zoom-in" data-aos-duration="1000">
+      <a href="#" class="inline-block group cursor-pointer relative">
+        <!-- Large pastel glow behind the button -->
+        <div
+          class="absolute inset-0 blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500 rounded-full">
+        </div>
+        <h2
+          class="relative z-10 text-8xl font-serif text-ink tracking-tight mb-6 flex items-center justify-center gap-4">
+          Let's do something crazy
+          <span
+            class="w-20 h-20 rounded-full bg-ink text-paper flex items-center justify-center group-hover:bg-pastel-pink group-hover:text-ink transition-colors duration-300 shadow-xl">
+            <i class="ph ph-paper-plane-tilt text-4xl"></i>
+          </span>
+        </h2>
+      </a>
+      <div
+        class="mt-24 pt-8 border-t border-slate-200 flex flex-row justify-between items-center text-xs text-muted uppercase tracking-widest font-bold">
+        <p>&copy; 2026 Genspark Training.</p>
+        <div class="flex gap-6 mt-0">
+          <a href="#" class="hover:text-ink transition-colors">GitHub</a>
+          <a href="#" class="hover:text-ink transition-colors">LinkedIn</a>
+          <a href="#" class="hover:text-ink transition-colors">Twitter</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+    </script>
+    <script>
+      AOS.init({
+        once: true,
+        offset: 60,
+        delay: 50
+      });
+    </script>
+  </div>
+</body>
+
+</html>
