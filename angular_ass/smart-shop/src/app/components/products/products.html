@@ -1,0 +1,29 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Our Products</h2>
+    <p>Browse our extensive catalog.</p>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading-spinner">
+    Loading products...
+  </div>
+
+  <div *ngIf="!isLoading() && products().length === 0" class="empty-state">
+    No products available.
+  </div>
+
+  <div class="products-grid" *ngIf="!isLoading()">
+    <div class="product-card" *ngFor="let product of products()" [routerLink]="['/products', product.id]">
+      <div class="product-image">
+        <img [src]="product.thumbnail" [alt]="product.title">
+      </div>
+      <div class="product-info">
+        <h3>{{ product.title }}</h3>
+        <div class="product-meta">
+          <span class="price">${{ product.price }}</span>
+          <span class="rating">⭐ {{ product.rating }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

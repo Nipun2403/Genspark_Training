@@ -1,0 +1,27 @@
+<div class="dashboard-container" *ngIf="currentUser$ | async as user">
+  <div class="welcome-banner">
+    <h1>Welcome, {{ user.firstName }}!</h1>
+    <p>Select an option from the menu below to get started.</p>
+  </div>
+
+  <div class="menu-grid">
+    <a routerLink="/products" class="menu-card">
+      <div class="card-icon">🛍️</div>
+      <h3>Products</h3>
+      <p>Browse our catalog of products.</p>
+    </a>
+
+    <!-- We provide a default ID for demonstration, actual IDs will be routed from the products list -->
+    <a routerLink="/products/1" class="menu-card">
+      <div class="card-icon">🔍</div>
+      <h3>Product Details Example</h3>
+      <p>View detailed information for Product 1.</p>
+    </a>
+
+    <a routerLink="/profile" class="menu-card">
+      <div class="card-icon">👤</div>
+      <h3>Profile</h3>
+      <p>View your account information.</p>
+    </a>
+  </div>
+</div>

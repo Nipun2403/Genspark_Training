@@ -1,0 +1,39 @@
+<div class="page-container">
+  <a routerLink="/products" class="back-link">← Back to Products</a>
+
+  <div *ngIf="isLoading()" class="loading-spinner">
+    Loading product details...
+  </div>
+
+  <div *ngIf="error()" class="error-message">
+    {{ error() }}
+  </div>
+
+  <div *ngIf="product() as p" class="product-details-container">
+    <div class="product-images">
+      <img [src]="p.thumbnail" [alt]="p.title" class="main-image">
+    </div>
+    
+    <div class="product-info">
+      <div class="badges">
+        <span class="badge category" *ngIf="p.category">{{ p.category }}</span>
+        <span class="badge brand" *ngIf="p.brand">{{ p.brand }}</span>
+      </div>
+
+      <h1 class="title">{{ p.title }}</h1>
+      
+      <div class="meta">
+        <span class="rating">⭐ {{ p.rating }}</span>
+      </div>
+      
+      <div class="price">${{ p.price }}</div>
+      
+      <div class="description">
+        <h3>Description</h3>
+        <p>{{ p.description }}</p>
+      </div>
+
+      <button class="btn btn-primary add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+</div>

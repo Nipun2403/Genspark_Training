@@ -1,0 +1,26 @@
+<div class="page-container" *ngIf="currentUser$ | async as user">
+  <div class="profile-card">
+    <div class="profile-header">
+      <img [src]="user.image" alt="Profile Image" class="profile-image">
+      <div class="profile-title">
+        <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+        <p class="username">@{{ user.username }}</p>
+      </div>
+    </div>
+    
+    <div class="profile-details">
+      <div class="detail-group">
+        <label>Email</label>
+        <p>{{ user.email }}</p>
+      </div>
+      <div class="detail-group">
+        <label>Gender</label>
+        <p class="capitalize">{{ user.gender }}</p>
+      </div>
+      <div class="detail-group">
+        <label>User ID</label>
+        <p>#{{ user.id }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<header class="main-header" *ngIf="currentUser$ | async as user">
+  <div class="header-container">
+    <div class="logo">
+      <a routerLink="/dashboard">SmartShop Portal</a>
+    </div>
+    <div class="user-controls">
+      <span class="salutation">Hello, {{ user.firstName }}</span>
+      <button class="btn btn-logout" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>
