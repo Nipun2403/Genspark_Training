@@ -1,0 +1,42 @@
+{
+    "project_name": "Custom Furniture E-Commerce Portal",
+    "functional_requirements": [
+        "Customer product catalog browsing",
+        "High-quality image viewing and 3D previews",
+        "Customer furniture configuration wizard (dimensions, materials, colors)",
+        "Real-time price updating during configuration",
+        "Shopping cart management (add, view items)",
+        "Secure credit card payment processing checkout",
+        "Customer account creation and order history tracking",
+        "Admin secure login",
+        "Admin product catalog management",
+        "Admin material management",
+        "Admin inventory tracking",
+        "Admin past orders viewing",
+        "Admin fulfillment status updating",
+        "Admin trigger email notifications to customers"
+    ],
+    "non_functional_requirements": [
+        "Fast page load time (sub-2 second)",
+        "Responsive design for mobile, tablet, and desktop",
+        "High Security (PCI standards compliance for payments)",
+        "Scalability (smooth handling of traffic spikes, particularly during holiday sales)"
+    ],
+    "risks": [
+        "Integration challenges if future FedEx/UPS API integration is complex",
+        "Performance issues if 3D previews impact the sub-2 second load time goal",
+        "Security vulnerabilities impacting PCI compliance"
+    ],
+    "assumptions": [
+        "All users placing orders will be required to create an account",
+        "Admins will have a completely separate portal (possibly on a different subdomain)",
+        "Shipping will initially use a flat-rate calculation"
+    ],
+    "questions": [
+        "What are the specific dimensions, materials, and colors that need to be configurable for the furniture?",
+        "Are there any specific payment gateway providers preferred for credit card processing?",
+        "Should the email notifications be fully customizable by the admins, or just triggered from templates?",
+        "Will the 3D previews be pre-rendered models or dynamically generated?",
+        "What constitutes a 'traffic spike' in terms of concurrent users or transactions per minute?"
+    ]
+}

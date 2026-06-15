@@ -1,0 +1,143 @@
+
+        PROMPT
+        ==================================================
+
+        You are a Senior Product Manager and Business Analyst specializing in E-Commerce Systems.
+
+Your task is to analyze client requirements and identify business needs, risks, assumptions, and missing information before development begins.
+
+Generate:
+
+1. Functional Requirements
+2. Non Functional Requirements
+3. Risks
+4. Assumptions
+5. Questions to Client
+
+Return ONLY valid JSON.
+
+Example:
+
+Input Requirement:
+
+A web-based library management system is needed. Librarians should be able to manage books and members. Students should be able to search books and borrow available copies. The system should send reminders for overdue books.
+
+Expected Output:
+
+{
+"project_name" : "Library Management System"
+"functional_requirements": [
+    "Manage books",
+    "Manage library members",
+    "Search books",
+    "Borrow books",
+    "Return books",
+    "Send overdue notifications"
+    ],
+"non_functional_requirements": [
+    "System availability",
+    "Usability",
+    "Performance",
+    "Security"
+    ],
+"risks": [
+    "Incorrect book inventory",
+    "Notification delivery failures"
+    ],
+"assumptions": [
+    "Students have registered accounts",
+    "Email service is available"
+    ],
+"questions": [
+    "What user roles are required?",
+    "Should fines be calculated automatically?",
+    "What notification channels should be supported?"
+    ]
+}
+
+Guidelines:
+
+1. Extract explicit requirements from the requirement document.
+2. Infer reasonable non-functional requirements when not explicitly stated.
+3. Identify business, technical, operational, and security risks.
+4. Identify assumptions necessary for implementation.
+5. Generate meaningful clarification questions for ambiguous areas.
+6. Do not include explanations outside JSON.
+7. Ensure the JSON is syntactically valid.
+
+Return JSON using exactly this structure:
+
+{
+"project_name" : "",
+"functional_requirements": [],
+"non_functional_requirements": [],
+"risks": [],
+"assumptions": [],
+"questions": []
+}
+
+Requirement:
+
+Custom Furniture E-Commerce Portal Requirements
+
+We are looking to develop a comprehensive online portal to sell our premium custom furniture directly to consumers. The primary objective is to allow customers to browse our catalog, customize furniture dimensions, materials, and colors, and place orders seamlessly.
+
+Core Features
+Customers should have access to a rich product catalog with high-quality images and 3D previews if possible. Once an item is selected, they need a configuration wizard to adjust colors, select materials (e.g., leather vs. fabric), and see the price update in real-time. Customers must be able to add these items to a shopping cart and proceed to a checkout page. Payment processing should be handled securely via credit card.
+
+Additionally, there must be an admin backend. Administrators need to log in securely to manage the product catalog, update available materials, and track inventory levels. Admins should also be able to view all past orders, change their fulfillment status, and trigger email notifications to customers.
+
+Technical and Operational Needs
+The website must be extremely fast, aiming for a sub-2 second page load time to prevent cart abandonment. It needs to be fully responsive for mobile, tablet, and desktop users. Security is paramount, so the system must comply with PCI standards for handling payments. The application should also be designed to handle traffic spikes smoothly, particularly during holiday sales.
+
+Additional Context
+We assume that all users placing an order will be required to create an account so we can track their history and provide customer support. Admins will have a completely separate portal, maybe on a different subdomain. For shipping, we plan to use a flat-rate calculation initially, but we might want to integrate with FedEx or UPS APIs in the future.
+
+
+        RESPONSE
+        ==================================================
+
+        ```json
+{
+    "project_name": "Custom Furniture E-Commerce Portal",
+    "functional_requirements": [
+        "Customer product catalog browsing",
+        "High-quality image viewing and 3D previews",
+        "Customer furniture configuration wizard (dimensions, materials, colors)",
+        "Real-time price updating during configuration",
+        "Shopping cart management (add, view items)",
+        "Secure credit card payment processing checkout",
+        "Customer account creation and order history tracking",
+        "Admin secure login",
+        "Admin product catalog management",
+        "Admin material management",
+        "Admin inventory tracking",
+        "Admin past orders viewing",
+        "Admin fulfillment status updating",
+        "Admin trigger email notifications to customers"
+    ],
+    "non_functional_requirements": [
+        "Fast page load time (sub-2 second)",
+        "Responsive design for mobile, tablet, and desktop",
+        "High Security (PCI standards compliance for payments)",
+        "Scalability (smooth handling of traffic spikes, particularly during holiday sales)"
+    ],
+    "risks": [
+        "Integration challenges if future FedEx/UPS API integration is complex",
+        "Performance issues if 3D previews impact the sub-2 second load time goal",
+        "Security vulnerabilities impacting PCI compliance"
+    ],
+    "assumptions": [
+        "All users placing orders will be required to create an account",
+        "Admins will have a completely separate portal (possibly on a different subdomain)",
+        "Shipping will initially use a flat-rate calculation"
+    ],
+    "questions": [
+        "What are the specific dimensions, materials, and colors that need to be configurable for the furniture?",
+        "Are there any specific payment gateway providers preferred for credit card processing?",
+        "Should the email notifications be fully customizable by the admins, or just triggered from templates?",
+        "Will the 3D previews be pre-rendered models or dynamically generated?",
+        "What constitutes a 'traffic spike' in terms of concurrent users or transactions per minute?"
+    ]
+}
+```
